@@ -1,10 +1,12 @@
 const express = require("express");
 require('dotenv').config();
 const { stripe } = require("../services/services.stripe");
+const { authMiddleware, authorizeRoles} = require("../Middleware/jwt.middleware");
+
 
 const paymentIntentRouter = express.Router();
 
-paymentIntentRouter.post("/create_intent", async (req, res) => {
+paymentIntentRouter.post("/create_intent", authMiddleware, async (req, res) => {
     console.log(req)
     const { amount, currency } = req.body;
 
@@ -26,7 +28,7 @@ paymentIntentRouter.post("/create_intent", async (req, res) => {
     }
 });
 
-paymentIntentRouter.post("/capture_intent/:id", async (req, res) => {
+paymentIntentRouter.post("/capture_intent/:id", authMiddleware,  async (req, res) => {
     const { id: intentId } = req.params;
 
     if (!intentId) {
@@ -41,7 +43,7 @@ paymentIntentRouter.post("/capture_intent/:id", async (req, res) => {
     }
 });
 
-paymentIntentRouter.post("/create_refund/:id", async (req, res) => {
+paymentIntentRouter.post("/create_refund/:id", authMiddleware, authorizeRoles, async (req, res) => {
     const { id: intentId } = req.params;
 
 
@@ -62,9 +64,6 @@ paymentIntentRouter.post("/create_refund/:id", async (req, res) => {
             return res.status(400).json({ message: "Payment Intent Not Present" });
         }
 
-
-
-
         const charge = await stripe.charges.create({
             amount,
             currency: 'usd',
@@ -80,7 +79,7 @@ paymentIntentRouter.post("/create_refund/:id", async (req, res) => {
     }
 });
 
-paymentIntentRouter.get("/get_intents", async (req, res) => {
+paymentIntentRouter.get("/get_intents", authMiddleware, authorizeRoles, async (req, res) => {
     try {
         const paymentIntents = await stripe.paymentIntents.list({ limit: 3 });
         res.status(200).json(paymentIntents);
