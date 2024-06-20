@@ -20,6 +20,8 @@ SignupRouter.post("/register", async (req, res) => {
         res.status(400).send({ error: 'Error registering user' });
     }
 })
+
+
 SignupRouter.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
