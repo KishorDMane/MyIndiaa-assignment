@@ -10,13 +10,12 @@ This repository contains the backend code for the MyIndiaa Assignment project.
   - [Orders Collection](#orders-collection)
   - [Payments Collection](#payments-collection)
   - [Product Collection](#product-collection)
-  - [Admin Collection](#admin-collection)
+
 - [Deployed Backend](#deployed-backend)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Running the Application](#running-the-application)
-- [Admin Credentials](#admin-credentials)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -32,7 +31,7 @@ The API is documented using Postman collections. You can find the collections at
 - [Orders Collection](https://documenter.getpostman.com/view/24599452/2sA3XV9zeC)
 - [Payments Collection](https://documenter.getpostman.com/view/24599452/2sA3XV9zeD)
 - [Product Collection](https://documenter.getpostman.com/view/24599452/2sA3XV9zeE)
-- [Admin Collection](#admin-collection)
+
 
 **Note:** To test some collection routes, users need admin permissions.
 
