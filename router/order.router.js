@@ -1,5 +1,5 @@
 const express = require('express');
-const { OrderModel } = require("../module/order.module");
+const { OrderModel } = require("../models/order.module");
 const { authMiddleware, authorizeRoles} = require("../Middleware/jwt.middleware");
 
 const OrderRouter = express.Router();
@@ -9,7 +9,7 @@ OrderRouter.post('/', authMiddleware, async (req, res) => {
     try {
         const { products } = req.body;
         console.log(req.body)
-        const userId = req.user.userId; // Assuming userId is set in the JWT payload
+        const userId = req.user.userId; 
 
         // Calculate total amount based on products
         let totalAmount = 0;
@@ -33,7 +33,9 @@ console.log(order)
 // Get all orders (admin only)
 OrderRouter.get('/', authMiddleware, authorizeRoles("admin"),  async (req, res) => {
     try {
-        const orders = await Order.find().populate('customer', 'email');
+        const orders = await OrderModel.find().populate('customer', 'email');
+        console.log(orders)
+        
         res.send(orders);
     } catch (error) {
         res.status(500).send(error);

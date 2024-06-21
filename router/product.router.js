@@ -1,6 +1,6 @@
 const express = require('express');
 const { authMiddleware, authorizeRoles } = require("../Middleware/jwt.middleware.js");
-const { Product } = require("../module/product.module.js");
+const { Product } = require("../models/product.module.js");
 
 const productRouter = express.Router();
 
